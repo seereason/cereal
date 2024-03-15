@@ -108,6 +108,7 @@ import Data.Ix (Ix)
 import Data.List (intercalate)
 import Data.Maybe (isNothing,fromMaybe)
 import Foreign
+import GHC.Stack (HasCallStack)
 import System.IO.Unsafe (unsafeDupablePerformIO)
 
 import qualified Data.ByteString          as B
@@ -256,7 +257,7 @@ formatTrace :: [String] -> String
 formatTrace [] = "Empty call stack"
 formatTrace ls = "From:\t" ++ intercalate "\n\t" ls ++ "\n"
 
-get :: Get B.ByteString
+get :: HasCallStack => Get B.ByteString
 get  = Get (\s0 b0 m0 w _ k -> k s0 b0 m0 w s0)
 {-# INLINE get #-}
 
